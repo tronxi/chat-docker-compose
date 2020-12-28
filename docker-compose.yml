@@ -17,7 +17,7 @@ services:
       build: 
           context: https://github.com/tronxi/chat-front.git#master
           args:
-              - ENVIRONMENT=local
+              - ENVIRONMENT=docker
       ports:
           - "80:80"
       env_file: .env
