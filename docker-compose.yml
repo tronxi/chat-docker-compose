@@ -1,0 +1,49 @@
+version: '3.8'
+services:
+    mysql:
+      container_name: mysql
+      image: mysql
+      env_file: .env
+      ports:
+        - "3306:3306"
+      volumes: 
+        - ./mysql:/var/lib/mysql
+      networks: 
+        - chat-net
+
+    chat-front:
+      container_name: chat-front
+      image: chat-front:latest
+      build: 
+          context: https://github.com/tronxi/chat-front.git#master
+          args:
+              - ENVIRONMENT=local
+      ports:
+          - "80:80"
+      env_file: .env
+      networks: 
+          - chat-net
+
+    chat-service:
+        container_name: chat-service
+        image: chat-service:latest
+        build: 
+            context: https://github.com/tronxi/chat-server.git#master
+        ports:
+            - "8080:8080"
+        env_file: .env
+        networks: 
+            - chat-net
+
+    chat-rabbit:
+        container_name: chat-rabbit
+        image: rabbitmq:management
+        ports:
+            - "15672:15672"
+            - "5672:5672"
+        env_file: .env
+        networks: 
+            - chat-net
+
+networks: 
+    chat-net:
