@@ -13,11 +13,12 @@ services:
 
     chat-front:
       container_name: chat-front
-      image: chat-front:latest
+      image: tronxi/chat-front:local_aes
       build: 
           context: https://github.com/tronxi/chat-front.git#master
           args:
-              - ENVIRONMENT=docker
+              - ENVIRONMENT=local
+              - BRANCH=feature/aes
       ports:
           - "80:80"
       env_file: .env
@@ -26,7 +27,7 @@ services:
 
     chat-service:
         container_name: chat-service
-        image: chat-service:latest
+        image: tronxi/chat-service:0.0.1
         build: 
             context: https://github.com/tronxi/chat-server.git#master
         ports:
@@ -37,7 +38,7 @@ services:
 
     chat-rabbit:
         container_name: chat-rabbit
-        image: rabbitmq-stomp:latest
+        image: tronxi/rabbitmq-stomp:0.0.1
         build:
             context: ./
         ports:
