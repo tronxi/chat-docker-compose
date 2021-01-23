@@ -13,7 +13,7 @@ services:
 
     chat-front:
       container_name: chat-front
-      image: tronxi/chat-front:local_aes
+      image: tronxi/chat-front:0.0.1_aes
       build: 
           context: https://github.com/tronxi/chat-front.git#master
           args:
