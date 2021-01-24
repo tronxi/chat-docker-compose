@@ -40,13 +40,34 @@ services:
         container_name: chat-rabbit
         image: tronxi/rabbitmq-stomp:0.0.1
         build:
-            context: ./
+            context: ./rabbitmq/
         ports:
             - "15672:15672"
             - "5672:5672"
             - "61613:61613"
         env_file: .env
         networks: 
+            - chat-net
+
+    prometheus:
+        container_name: prometheus
+        image: prom/prometheus
+        ports:
+            - "9090:9090"
+        volumes: 
+            - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+        networks: 
+            - chat-net
+            
+    grafana:
+        container_name: grafana
+        image: grafana/grafana
+        ports:
+            - "3000:3000"
+        env_file: .env
+        volumes: 
+            - ./grafana/provisioning/:/etc/grafana/provisioning/
+        networks:
             - chat-net
 
 networks: 
