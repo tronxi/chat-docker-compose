@@ -19,7 +19,7 @@ services:
           args:
               - ENVIRONMENT=local
               - BRANCH=master
-              - PATH=/
+              - HREF=/
       ports:
           - "80:80"
       env_file: .env
