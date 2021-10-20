@@ -13,24 +13,17 @@ services:
 
     chat-front:
       container_name: chat-front
-      image: tronxi/chat-front:local_aes
-      build: 
-          context: https://github.com/tronxi/chat-front.git#master
-          args:
-              - ENVIRONMENT=local
-              - BRANCH=master
-              - HREF=/
+      image: tronxi/chat-front:latest
+      env_file: .env
       ports:
           - "80:80"
       env_file: .env
       networks: 
           - chat-net
 
-    chat-service:
-        container_name: chat-service
-        image: tronxi/chat-service:latest
-        build: 
-            context: https://github.com/tronxi/chat-server.git#master
+    chat-server:
+        container_name: chat-server
+        image: tronxi/chat-server:latest
         ports:
             - "8080:8080"
         env_file: .env
